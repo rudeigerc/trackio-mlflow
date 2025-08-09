@@ -43,7 +43,11 @@ class TestTrackioStore(unittest.TestCase):
             run_name=self.run_name,
         )
 
-        mock_trackio.init.assert_called_once_with(project="mlflow")
+        mock_trackio.init.assert_called_once_with(
+            project=self.store._trackio_project,
+            name="test_run",
+            space_id=None,
+        )
         self.assertIsInstance(result, Run)
         self.assertEqual(result.info.run_id, "test_run_id")
         self.assertEqual(result.info.status, RunStatus.RUNNING)
